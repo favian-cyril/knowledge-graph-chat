@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  neo4j:
+    image: neo4j:latest
+    container_name: neo4j_instance
+    environment:
+      NEO4J_AUTH: ${PRIVATE_NEO4J_USERNAME}/${PRIVATE_NEO4J_PASSWORD}
+      NEO4JLABS_PLUGINS: '[ "apoc" ]'
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webapp_instance
+    ports:
+      - "5173:5173"
+    depends_on:
+      - neo4j
+
+volumes:
+  neo4j_data:
