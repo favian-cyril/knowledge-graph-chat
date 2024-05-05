@@ -2,7 +2,7 @@ import { json, RequestEvent } from "@sveltejs/kit";
 
 export async function POST({ request, locals: { openAIclient, sqlite3db } }: RequestEvent): Promise<Response> {
         const query = 'INSERT INTO messages (sender, content) VALUES (?, ?)';
-        const deploymentId = 'gpt-35-turbo-16k';
+        const deploymentId = 'gpt-3.5-turbo';
         const messages = await request.json();
         // Only get last message from user to prevent duplicates
         const sender = messages.at(-1).role;

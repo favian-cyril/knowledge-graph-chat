@@ -8,7 +8,7 @@ export async function POST({ request, locals: { neo4jdriver, openAIclient } }: R
         const maxRetries = 5;
         let retries = 0;
         const session = neo4jdriver.session()
-        const deploymentId = 'gpt-35-turbo-16k';
+        const deploymentId = 'gpt-3.5-turbo';
         const messages = await request.json();
         // Check if nodes are created, if has nodes then use base prompt with context
         const nodes = await session.run(graphHasNodes);
