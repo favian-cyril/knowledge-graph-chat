@@ -41,6 +41,7 @@
   },
   "type": "module",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "graphology": "^0.25.4",
     "graphology-layout": "^0.6.1",
     "graphology-layout-force": "^0.2.4",
