@@ -8,7 +8,7 @@ export async function POST({ request, locals: { openAIclient, sqlite3db } }: Req
         const sender = messages.at(-1).role;
         const content = messages.at(-1).content;
         const values = [sender, content];
-        const result = await openAIclient.getChatCompletions(deploymentId, messages);
+        const result = await openAIclient.chat.completions.create({ messages, model: deploymentId });
         sqlite3db.serialize(() => {
             sqlite3db.run(query, values);
             const newValues = ['assistant', result.choices[0].message?.content];

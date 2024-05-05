@@ -30,7 +30,7 @@ export async function POST({ request, locals: { neo4jdriver, openAIclient } }: R
         // Query generated from chatgpt might be error prone, so retry is needed
         while (retries < maxRetries) {
             try {
-                const result = await openAIclient.getChatCompletions(deploymentId, messagesWithBasePrompt, { temperature: 0.1 });
+                const result = await openAIclient.chat.completions.create({ messages: messagesWithBasePrompt, temperature: 0.1, model: deploymentId });
                 if (result.choices[0].message?.content) {
                     const createQuery = result.choices[0].message.content;
                     await session.run(createQuery)

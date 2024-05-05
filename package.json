@@ -48,6 +48,7 @@
     "graphology-layout-force": "^0.2.4",
     "graphology-layout-noverlap": "^0.4.2",
     "neo4j-driver": "^5.16.0",
+    "openai": "^4.40.2",
     "sigma": "^3.0.0-beta.4",
     "sqlite3": "^5.1.7"
   }
