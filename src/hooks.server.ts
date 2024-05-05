@@ -1,10 +1,10 @@
-import { PRIVATE_AZURE_OPENAI_ENDPOINT, PRIVATE_AZURE_OPENAI_KEY, PRIVATE_NEO4J_PASSWORD, PRIVATE_NEO4J_USERNAME } from "$env/static/private";
+import { PRIVATE_AZURE_OPENAI_ENDPOINT, PRIVATE_AZURE_OPENAI_KEY, PRIVATE_NEO4J_PASSWORD, PRIVATE_NEO4J_USERNAME, PRIVATE_NEO4J_ENDPOINT } from "$env/static/private";
 import { AzureKeyCredential, OpenAIClient } from "@azure/openai";
 import { Handle } from "@sveltejs/kit";
 import neo4j from "neo4j-driver";
 import sqlite3 from "sqlite3";
 
-const driver = neo4j.driver('bolt://neo4j_instance:7687', neo4j.auth.basic(PRIVATE_NEO4J_USERNAME, PRIVATE_NEO4J_PASSWORD));
+const driver = neo4j.driver(PRIVATE_NEO4J_ENDPOINT, neo4j.auth.basic(PRIVATE_NEO4J_USERNAME, PRIVATE_NEO4J_PASSWORD));
 const db = new sqlite3.Database(process.env.DATABASE_URL || 'chat.db');
 
 db.run(`
