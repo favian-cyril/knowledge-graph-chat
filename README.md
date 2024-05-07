@@ -7,6 +7,14 @@ links:
  - [docker-compose](https://docs.docker.com/compose/install/)
 
 ## Running the project
+Create env file using this template
+```
+PRIVATE_OPENAI_KEY=
+PRIVATE_OPENAI_ENDPOINT=
+PRIVATE_NEO4J_USERNAME=
+PRIVATE_NEO4J_PASSWORD=
+PRIVATE_NEO4J_ENDPOINT=bolt://neo4j_instance:7687
+```
 
 ```bash
 # start the project
