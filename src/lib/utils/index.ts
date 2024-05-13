@@ -13,3 +13,15 @@ export function generateRelationString (record: Record): string {
 
     return `${startNodeString}${relationshipString}${endNodeString}`;
 }
+
+export function extractCodeBlockText(markdownText: string): string {
+    const regex = /```(?:\w+)?\s*([\s\S]+?)\s*```/gm;
+    const matches = [];
+    let match;
+    
+    while ((match = regex.exec(markdownText)) !== null) {
+        matches.push(match[1]);
+    }
+    
+    return matches.join('');
+}

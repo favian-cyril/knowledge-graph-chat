@@ -1,7 +1,7 @@
 import { json, RequestEvent } from "@sveltejs/kit";
 import { basePrompt, ragPrompt } from "$lib/constants/prompts";
 import { getSchema, graphHasNodes, returnAllNodes } from "$lib/constants/cypher";
-import { generateRelationString } from "$lib/utils";
+import { extractCodeBlockText, generateRelationString } from "$lib/utils";
 
 
 export async function POST({ request, locals: { neo4jdriver, openAIclient } }: RequestEvent): Promise<Response> {
@@ -32,7 +32,7 @@ export async function POST({ request, locals: { neo4jdriver, openAIclient } }: R
             try {
                 const result = await openAIclient.chat.completions.create({ messages: messagesWithBasePrompt, temperature: 0.1, model: deploymentId });
                 if (result.choices[0].message?.content) {
-                    const createQuery = result.choices[0].message.content;
+                    const createQuery = extractCodeBlockText(result.choices[0].message.content);
                     await session.run(createQuery)
                     const res = await session.run(returnAllNodes);
                     return json({
@@ -40,7 +40,7 @@ export async function POST({ request, locals: { neo4jdriver, openAIclient } }: R
                         error: null
                     })
                 }
-            } catch {
+            } catch (err) {
                 retries++;
                 await new Promise(resolve => setTimeout(resolve, 500));
             }
